@@ -8,7 +8,7 @@ app = FastAPI()
 
 # Load AdaBoost model
 with open("modelv1.joblib", "rb") as f:
-    model = pickle.load(f)
+    model = joblib.load(f)
 
 # Load threshold
 with open("modelv1_threshold.txt", "r") as f:
@@ -16,7 +16,7 @@ with open("modelv1_threshold.txt", "r") as f:
 
 # Load feature order
 with open("modelv1_features.joblib", "rb") as f:
-    feature_order = pickle.load(f)
+    feature_order = joblib.load(f)
 
 # Update this to match modelv1 feature schema
 class InputData(BaseModel):
