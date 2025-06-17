@@ -2,12 +2,12 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 import numpy as np
 import pandas as pd
-import pickle
+import joblib
 
 app = FastAPI()
 
 # Load AdaBoost model
-with open("modelv1.pkl", "rb") as f:
+with open("modelv1.joblib", "rb") as f:
     model = pickle.load(f)
 
 # Load threshold
@@ -15,7 +15,7 @@ with open("modelv1_threshold.txt", "r") as f:
     best_threshold = float(f.read())
 
 # Load feature order
-with open("modelv1_features.pkl", "rb") as f:
+with open("modelv1_features.joblib", "rb") as f:
     feature_order = pickle.load(f)
 
 # Update this to match modelv1 feature schema
