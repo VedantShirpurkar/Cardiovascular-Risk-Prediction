@@ -50,9 +50,16 @@ jobs:
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
+            sudo apt update && sudo apt install -y awscli
+            aws ecr get-login-password --region us-east-1 | \
+            docker login --username AWS --password-stdin 098578355748.dkr.ecr.us-east-1.amazonaws.com
+
             if docker ps -a --format '{{.Names}}' | grep -Eq "^cardio-api$"; then
               docker stop cardio-api
               docker rm cardio-api
             fi
+
             docker pull 098578355748.dkr.ecr.us-east-1.amazonaws.com/cardio-api1:v1
             docker run -d -p 8000:8000 --name cardio-api 098578355748.dkr.ecr.us-east-1.amazonaws.com/cardio-api1:v1
+
+
