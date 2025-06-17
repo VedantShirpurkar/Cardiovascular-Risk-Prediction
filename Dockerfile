@@ -9,13 +9,13 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy necessary files for modelv1
-COPY app.py .
-COPY modelv1.joblib .
-COPY modelv1_threshold.txt .
-COPY modelv1_features.joblib .
+COPY app_v2.py .
+COPY modelv2.joblib .
+COPY modelv2_threshold.txt .
+COPY modelv2_features.joblib .
 
 # Expose FastAPI's default port
-EXPOSE 8000
+EXPOSE 8001
 
 # Run the FastAPI app
 CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
