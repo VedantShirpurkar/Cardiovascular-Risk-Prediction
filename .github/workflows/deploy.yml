@@ -43,14 +43,14 @@ jobs:
           docker tag cardio-api:v1 098578355748.dkr.ecr.us-east-1.amazonaws.com/cardio-api1:v1
           docker push 098578355748.dkr.ecr.us-east-1.amazonaws.com/cardio-api1:v1
 
-      - name: SSH and deploy on EC2
+      - name: SSH into EC2 and deploy container
         uses: appleboy/ssh-action@master
         with:
-          host: 13.220.97.121
+          host: ${{ secrets.EC2_PUBLIC_IP }}
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             docker stop cardio-api || true
             docker rm cardio-api || true
             docker pull 098578355748.dkr.ecr.us-east-1.amazonaws.com/cardio-api1:v1
-            docker run -d --name cardio-api -p 8000:8000 098578355748.dkr.ecr.us-east-1.amazonaws.com/cardio-api1:v1
+            docker run -d -p 8000:8000 --name cardio-api 098578355748.dkr.ecr.us-east-1.amazonaws.com/cardio-api1:v1
