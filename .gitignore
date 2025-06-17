@@ -1,0 +1,6 @@
+modelv2.pkl
+catboost_info/
+catboost_threshold.txt
+data_cardiovascular_risk.csv
+experimentation.ipynb
+venv/
