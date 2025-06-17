@@ -50,7 +50,9 @@ jobs:
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            docker stop cardio-api || true
-            docker rm cardio-api || true
+            if docker ps -a --format '{{.Names}}' | grep -Eq "^cardio-api$"; then
+              docker stop cardio-api
+              docker rm cardio-api
+            fi
             docker pull 098578355748.dkr.ecr.us-east-1.amazonaws.com/cardio-api1:v1
             docker run -d -p 8000:8000 --name cardio-api 098578355748.dkr.ecr.us-east-1.amazonaws.com/cardio-api1:v1
