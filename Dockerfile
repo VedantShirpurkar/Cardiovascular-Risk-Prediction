@@ -15,7 +15,7 @@ COPY modelv2_threshold.txt .
 COPY modelv2_features.joblib .
 
 # Expose FastAPI's default port
-EXPOSE 8001
+EXPOSE 8000
 
 # Run the FastAPI app
-CMD ["uvicorn", "app_v2:app", "--host", "0.0.0.0", "--port", "8001"]
+CMD ["uvicorn", "app_v2:app", "--host", "0.0.0.0", "--port", "8000"]
