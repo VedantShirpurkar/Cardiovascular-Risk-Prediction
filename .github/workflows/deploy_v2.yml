@@ -2,7 +2,13 @@ name: CI/CD for Cardio API V2
 
 on:
   push:
-    branches: [ main ]
+    paths:
+      - 'app_v2.py'
+      - 'modelv2.joblib'
+      - 'modelv2_threshold.txt'
+      - 'modelv2_features.joblib'
+      - 'Dockerfile'
+      - 'requirements.txt'
 
 jobs:
   build-test-deploy:
@@ -39,7 +45,7 @@ jobs:
 
       - name: Build, tag, and push Docker image (Model V2)
         run: |
-          docker build --platform=linux/amd64 -t cardio-api:v2 .
+          docker build --platform=linux/amd64 -t cardio-api:v2 -f Dockerfile .
           docker tag cardio-api:v2 098578355748.dkr.ecr.us-east-1.amazonaws.com/cardio-api1:v2
           docker push 098578355748.dkr.ecr.us-east-1.amazonaws.com/cardio-api1:v2
 
